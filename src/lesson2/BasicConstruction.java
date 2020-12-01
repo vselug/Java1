@@ -4,6 +4,8 @@
 
 package lesson2;
 
+import java.util.Objects;
+
 public class BasicConstruction {
     public static void main(String[] args) {
 
@@ -146,5 +148,6 @@ public class BasicConstruction {
         }
     }
 
-    // Метод для получения максимума в одномерном массиве
+
+
 }
