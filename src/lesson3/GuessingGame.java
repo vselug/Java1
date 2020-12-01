@@ -26,9 +26,7 @@ public class GuessingGame {
         /*Считываем введенное слово и отправляем на посимвольное
         сравнение с загаданным*/
         totalChar = getTotalChar(hiddenWord, scanner.nextLine());
-        getOutWord(totalChar, outWord);
-
-        // !!!! Не забыть вставить проверку на тупое сравнение! Вдруг юзер угадал сразу!
+        getOutWord(totalChar, outWord); // Выводим угаданные символы
 
         scanner.close();
 
@@ -36,14 +34,15 @@ public class GuessingGame {
 
     // Метод для вывода отгаданных символов в загаданном слове
     private static void getOutWord(String[][] totalChar, String outWord) {
-        String newOutWord;
+        String newOutWord = outWord;
         String str1 = "";
         int inx;
+        StringBuilder new_s = new StringBuilder(newOutWord);
 
         for (int i = 0; i < totalChar.length; i++) {
             str1 = totalChar [i][0];
             inx = Integer.parseInt(totalChar [i][1]);
-            String new_s = (new StringBuilder(outWord)).insert(5, str1).toString();
+            new_s.insert(inx, str1);
         }
 
         //String new_s = (new StringBuilder(outWord)).insert(5, "(inserted) ").toString();
@@ -85,26 +84,4 @@ public class GuessingGame {
         }
         return twoChar;
     }
-
-    // Метод для поиска элемента в массиве
-    /*private static int findStr (String[][] array, String element) {
-        if (Objects.isNull(array))
-            return -1;
-        String str;
-        int i, j = 0;
-
-        for (i = 0; i < array.length-1; i++) {
-            for (j = 0; j < 1; j++) {
-                str = array[i][j];
-
-                if (array[i][j] != null) {
-                    if (str.equals(element)) {
-                        System.out.println("Алярм!");
-                        return 1;
-                    }
-                }
-            }
-        }
-        return -1;
-    }*/
 }
