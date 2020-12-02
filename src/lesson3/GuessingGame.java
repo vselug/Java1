@@ -7,12 +7,10 @@ import java.util.Scanner;
 public class GuessingGame {
     public static void main(String[] args) {
         // Создаем массив из базовых слов
-        /*String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado",
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado",
                 "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi",
                 "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper",
-                "pineapple", "pumpkin", "potato"};*/
-
-        String[] words = {"avocado", "broccoli", "mushroom", "pepper","pineapple", "pumpkin", "potato"};
+                "pineapple", "pumpkin", "potato"};
 
         String [][] totalChar; // Массив для получения и дальнейшей обработки символов
         String outWord = "###############"; // Забиваем шаблон вывода спецсимволами
@@ -25,28 +23,30 @@ public class GuessingGame {
 
         /*Считываем введенное слово и отправляем на посимвольное
         сравнение с загаданным*/
-        totalChar = getTotalChar(hiddenWord, scanner.nextLine());
-        getOutWord(totalChar, outWord); // Выводим угаданные символы
+        do {
+            totalChar = getTotalChar(hiddenWord, scanner.nextLine());
+            getOutWord(totalChar, outWord); // Выводим угаданные символы
 
+            System.out.printf("%nХотите продолжить y/n ?%n");
+        } while (!scanner.nextLine().equals("n"));
         scanner.close();
 
     } // End Main
 
     // Метод для вывода отгаданных символов в загаданном слове
     private static void getOutWord(String[][] totalChar, String outWord) {
-        String newOutWord = outWord;
         String str1 = "";
         int inx;
-        StringBuilder new_s = new StringBuilder(newOutWord);
+        StringBuilder new_s = new StringBuilder(outWord);
 
-        for (int i = 0; i < totalChar.length; i++) {
+        for (int i = 0; i < totalChar.length-1; i++) {
             str1 = totalChar [i][0];
-            inx = Integer.parseInt(totalChar [i][1]);
-            new_s.insert(inx, str1);
+            if (str1 != null) {
+                inx = Integer.parseInt(totalChar[i][1]);
+                new_s.insert(inx, str1);
+            }
         }
-
-        //String new_s = (new StringBuilder(outWord)).insert(5, "(inserted) ").toString();
-        System.out.println("Вы отгадали "+outWord);
+        System.out.println("Вы отгадали "+new_s);
     }
 
     // Метод для извлечения из массива слов, случайного
@@ -65,7 +65,7 @@ public class GuessingGame {
         // Объявляем двумерный массив для хранения найденных совпадений и их индексов
         String [][] twoChar = new String [numCharHidden][2]; // Длина первого измерения - по длине загаданного слова
 
-        for (int i = 0; i < numCharHidden; i++) { // Цикл по символам загаданного слова
+        for (int i = 0; i < numCharHidden-1; i++) { // Цикл по символам загаданного слова
             String stri = Character.toString(hiddenWord.charAt(i));
             String strj;
             int j = 0;
@@ -75,12 +75,13 @@ public class GuessingGame {
                  strj = Character.toString(nextLine.charAt(j));
 
                  if (stri.equals(strj)) { // Пишем пару в массив [Совп.симв, Индекс]
-                     twoChar [j][0] = strj;
-                     twoChar [j][1] = Integer.toString(i);
-                     System.out.println(" - "+twoChar [j][0] +" - "+twoChar [j][1]);
+                     twoChar [i][0] = strj;
+                     twoChar [i][1] = Integer.toString(i);
                  }
                  j++;
             }
+            if (twoChar[i][0] != null)
+            System.out.println(" - "+twoChar [i][0] +" - "+twoChar [i][1]);
         }
         return twoChar;
     }
