@@ -26,7 +26,7 @@ public class CrossZero {
     } // End Main
 
     // Запуск начала игры
-    private static void turnGame() {
+    public static void turnGame() {
         initMap(); // Инициализация массива и заполнение пустыми спецсимволами
         printMap();
         playGame();
@@ -114,6 +114,7 @@ public class CrossZero {
             } else {
                 in.next(); // Чтение следующего слова
                 System.out.println("Введите число от 0 до "+SIZE+"\n");
+                continue;
             }
         } while (!isCellValid (rowNumber, columnNumber));
 
@@ -151,7 +152,16 @@ public class CrossZero {
 
         // Проверка на комбинацию
         if (checkWin(symbol)) {
+            String winMessage;
 
+            if (symbol == DOT_HUMAN) {
+                winMessage = "Ура мы победили!";
+            } else {
+                winMessage = "Победил компьютер!";
+            }
+
+            isEnd = true;
+            System.out.println(winMessage);
         }
 
         // Ничья (например, сходили в последнюю ячейку)
@@ -167,14 +177,30 @@ public class CrossZero {
 
     // Метод проверки выйгрышной комбинации
     private static boolean checkWin(char symbol) {
+        if (map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol) return true;
+        if (map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol) return true;
+        if (map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol) return true;
 
+        if (map[0][0] == symbol && map[1][0] == symbol && map[2][0] == symbol) return true;
+        if (map[0][1] == symbol && map[1][1] == symbol && map[2][1] == symbol) return true;
+        if (map[0][2] == symbol && map[1][2] == symbol && map[2][2] == symbol) return true;
 
+        if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol) return true;
+        if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol) return true;
+
+        return false;
     }
 
     // Метод проверки заполненности карты
     private static boolean isMapFull() {
-
-        return false;
+        for (char[] chars : map) {
+            for (char symbol : chars) {
+                if (symbol == DOT_EMPTY) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     // Метод обработки хода компьютера
