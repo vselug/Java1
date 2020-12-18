@@ -1,20 +1,26 @@
 package lesson7;
 
 public class Plate {
-    private int food;
+    private int foodPlate;
 
-    // Пополнение еды
+    // Пополнение еды в миске
     public void addFood(int food) {
-        this.food += food;
+        this.foodPlate += food;
     }
 
     // Обратная связь по миске
     public void printInfo() {
-        System.out.println("В миске сейчас : "+food);
+        System.out.println("В миске сейчас : "+foodPlate);
     }
 
     // Уменьшение еды в миске после еды кота
-    public void decreaseFood(int food) {
-        this.food -= food;
+    public boolean decreaseFood(int food, String name) {
+        if (foodPlate >= food) {
+            this.foodPlate -= food;
+            return true;
+        } else {
+            System.out.println("В миске мало еды, не хватит покормить "+ name +". Нужно насыпать еще!");
+            return false;
+        }
     }
 }

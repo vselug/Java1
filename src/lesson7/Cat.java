@@ -2,13 +2,21 @@ package lesson7;
 
 public class Cat {
 
-    private String name;
+    protected String name;
+    protected int appetit;
+    protected boolean satiety;
 
-    public Cat(String name) {
+    public Cat(String name, int appetit, boolean satiety) {
         this.name = name;
+        this.appetit = appetit;
+        this.satiety = satiety;
     }
 
     public void eat(Plate plate) {
-        plate.decreaseFood(7); // 5-ромашка, семь (просто число)
+        if (plate.decreaseFood(appetit, name)) {
+            satiety = true;
+            System.out.println("Котик "+ name + " поел, сыт и весел!");
+        }
+
     }
 }
