@@ -75,15 +75,4 @@ public class Test {
         }
     }
 
-    // Метод для установки аппетита котам
-    private static void setAppetit(Cat[] cats) {
-        int appetitCat;
-
-        System.out.println("Зададим каждому котику аппетит");
-        for (Cat cat : cats) {
-            System.out.println("Для кота " + cat.name + ", аппетит?");
-            cat.appetit = in.nextInt();
-        }
-    }
-
 }
