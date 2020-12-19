@@ -1,7 +1,12 @@
 package lesson7;
 
 public class Plate {
-    private int foodPlate;
+    protected int foodPlate;
+    protected int requiredQuantity; // Нехватка для кормления
+
+    public Plate(int requiredQuantity) {
+        this.requiredQuantity = requiredQuantity;
+    }
 
     // Пополнение еды в миске
     public void addFood(int food) {
@@ -9,17 +14,19 @@ public class Plate {
     }
 
     // Обратная связь по миске
-    public void printInfo() {
-        System.out.println("В миске сейчас : "+foodPlate);
+    public void printPlateInfo() {
+        System.out.println("В миске осталось : "+foodPlate+" еды");
     }
 
     // Уменьшение еды в миске после еды кота
-    public boolean decreaseFood(int food, String name) {
+    public boolean decreaseFood(int food, String name, int appetit) {
         if (foodPlate >= food) {
             this.foodPlate -= food;
+            requiredQuantity = 0;
             return true;
         } else {
-            System.out.println("В миске мало еды, не хватит покормить "+ name +". Нужно насыпать еще!");
+            requiredQuantity = requiredQuantity+appetit-foodPlate;
+            System.out.println("В миске мало еды, всего: "+foodPlate+", а нужно - "+appetit+" / Не хватит покормить "+ name +"!");
             return false;
         }
     }

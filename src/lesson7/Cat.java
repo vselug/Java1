@@ -12,10 +12,14 @@ public class Cat {
         this.satiety = satiety;
     }
 
-    public void eat(Plate plate) {
-        if (plate.decreaseFood(appetit, name)) {
+    // Кормление конкретного экземпляря
+    public boolean eat(Plate plate) {
+        if (plate.decreaseFood(appetit, name, appetit)) {
             satiety = true;
             System.out.println("Котик "+ name + " поел, сыт и весел!");
+            return true;
+        } else {
+            return false;
         }
 
     }
